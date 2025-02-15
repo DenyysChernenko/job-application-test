@@ -12,8 +12,18 @@ pytest = "*"
 pytest-django = "*"
 ruff = "*"
 mypy = "*"
+drf-spectacular = "*"
+drf-spectacular-sidecar = "*"
+django-stubs = "*"
+djangorestframework-stubs = "*"
+mypy-extensions = "*"
+django-stubs-ext = "<5.0"
 
 [dev-packages]
+mypy-extensions = "*"
+django-stubs = "*"
+django-stubs-ext = "*"
+mypy = "*"
 
 [requires]
 python_version = "3.10"
