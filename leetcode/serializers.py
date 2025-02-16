@@ -68,7 +68,7 @@ class KthLargestSerializer(serializers.Serializer):
             store_index = left
 
             for i in range(left, right):
-                if nums[i] > pivot:  #
+                if nums[i] > pivot:  
                     nums[i], nums[store_index] = nums[store_index], nums[i]
                     store_index += 1
 

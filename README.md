@@ -11,6 +11,7 @@ In this README, I'll guide you through:
 - How to **run the application** using Docker
 - How to **execute tests inside Docker**
 
+---
 
 ## 🚀 Running the Application with Docker
 
@@ -54,3 +55,25 @@ To run all test cases inside the **Docker container**, use:
 ```sh
 docker exec -it job-app-container python manage.py test
 ```
+
+
+### **2.2 Run Specific App Tests**
+
+If it needed to run tests only for a specific app, must be used:
+- For the tasks app:
+```sh
+docker exec -it job-app-container python manage.py test tasks.tests
+```
+- For the leetcode app:
+```sh
+docker exec -it job-app-container python manage.py test leetcode.tests
+```
+
+---
+
+## 🎯 Conclusion
+
+This project is a **fully containerized Django REST API**, providing **task management** and **Leetcode-style coding challenges**.  
+With **Docker**, it's easy to set up, run, and test in any environment without manual dependency installation.
+
+
