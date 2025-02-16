@@ -23,13 +23,13 @@ class RotateArrayViewTestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data["result"], [4, 5, 1, 2, 3])
 
-    # def test_empty_array(self):
-    #     """Test rotating an empty array."""
-    #     data = {"nums": [], "k": 3}
-    #     response = self.client.post(self.url, data, format="json")
+    def test_empty_array(self):
+        """Test rotating an empty array."""
+        data = {"nums": [], "k": 3}
+        response = self.client.post(self.url, data, format="json")
 
-    #     self.assertEqual(response.status_code, status.HTTP_200_OK)
-    #     self.assertEqual(response.data["result"], [])
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data["result"], [])
 
     def test_missing_k_value(self):
         """Test missing `k` in the request body."""

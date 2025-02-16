@@ -1,7 +1,9 @@
 from rest_framework import generics
 from .models import Task
+from rest_framework import status
 from .serializers import TaskSerializer
 from django.utils.timezone import now
+from rest_framework.response import Response
 
 class TaskListCreateView(generics.ListCreateAPIView):
     """
@@ -30,6 +32,7 @@ class TaskDetailUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
 
+
 class NearestDeadlineTaskView(generics.ListAPIView):
     """
     API endpoint to retrieve the task with the nearest upcoming due_date.
@@ -40,5 +43,14 @@ class NearestDeadlineTaskView(generics.ListAPIView):
     serializer_class = TaskSerializer
 
     def get_queryset(self):
+        """Filter tasks to get the one with the nearest due_date."""
         return Task.objects.filter(due_date__isnull=False, due_date__gte=now()).order_by("due_date")[:1]
+
+    def list(self, request, *args, **kwargs):
+        """Override list method to return 404 if no tasks are found."""
+        queryset = self.get_queryset()
+        if not queryset.exists():
+            return Response({"detail": "No tasks with a due date found."}, status=status.HTTP_404_NOT_FOUND)
+        return super().list(request, *args, **kwargs)
+
     

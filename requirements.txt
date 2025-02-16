@@ -1,0 +1,14 @@
+django
+djangorestframework
+pillow
+opencv-python
+pytest
+pytest-django
+ruff
+mypy
+drf-spectacular
+drf-spectacular-sidecar
+django-stubs
+djangorestframework-stubs
+mypy-extensions
+django-stubs-ext<5.0

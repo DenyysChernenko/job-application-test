@@ -4,21 +4,27 @@ import random
 class RotateArraySerializer(serializers.Serializer):
     nums = serializers.ListField(
         child=serializers.IntegerField(), 
-        allow_empty=False
+        allow_empty=True  
     )
     k = serializers.IntegerField(min_value=0)
 
     def validate(self, data):
         """Ensure k is within valid range."""
         nums, k = data["nums"], data["k"]
-        if len(nums) == 0:
-            raise serializers.ValidationError("The nums array cannot be empty.")
+
+        if not nums:  
+            return data
+
         data["k"] = k % len(nums)  
         return data
 
     def rotate(self):
         """Rotate array to the right by k places with O(1) space complexity."""
         nums, k = self.validated_data["nums"], self.validated_data["k"]
+
+        if not nums or k == 0: 
+            return nums
+
         self.reverse(nums, 0, len(nums) - 1)
         self.reverse(nums, 0, k - 1)
         self.reverse(nums, k, len(nums) - 1)
@@ -58,18 +64,16 @@ class KthLargestSerializer(serializers.Serializer):
             pivot_index = random.randint(left, right)
             pivot = nums[pivot_index]
 
-            # Partition the array
-            nums[right], nums[pivot_index] = nums[pivot_index], nums[right]  # Move pivot to end
+            nums[right], nums[pivot_index] = nums[pivot_index], nums[right]  
             store_index = left
 
             for i in range(left, right):
-                if nums[i] > pivot:  # Move elements greater than pivot to the left
+                if nums[i] > pivot:  #
                     nums[i], nums[store_index] = nums[store_index], nums[i]
                     store_index += 1
 
-            nums[right], nums[store_index] = nums[store_index], nums[right]  # Restore pivot
+            nums[right], nums[store_index] = nums[store_index], nums[right]  
 
-            # Determine where to search next
             if store_index == index:
                 return nums[store_index]
             elif store_index > index:

@@ -1,0 +1,8 @@
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+task_photos/
+.mypy_cache/
+.ruff_cache/
